@@ -1,5 +1,6 @@
 import { AddCircle, Delete, Edit } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -7,9 +8,15 @@ import {
   CardActions,
   CardContent,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Grid,
   IconButton,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
@@ -18,6 +25,35 @@ import { Link } from "react-router-dom";
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
+  const deleteConfirmationHandler = (id) => {
+    setDeleteModal(true);
+
+    setSelectedQuestionId(id);
+  };
+
+  const deleteHandler = (decision) => {
+    setDeleteModal(false);
+
+    if (selectedQuestionId !== null && decision === "yes") {
+      let localQuestions = JSON.parse(
+        localStorage.getItem("questions") || "[]"
+      );
+
+      localQuestions = localQuestions.filter((el) => {
+        return el.id !== selectedQuestionId;
+      });
+
+      setQuestions(localQuestions);
+      setDeleteSuccess(true);
+      setSelectedQuestionId(null);
+
+      localStorage.setItem("questions", JSON.stringify(localQuestions));
+    }
+  };
 
   useEffect(() => {
     const localQuestions = JSON.parse(
@@ -29,6 +65,28 @@ const Questions = () => {
 
   return (
     <Container fixed>
+      <Snackbar
+        open={deleteSuccess}
+        onClose={() => {
+          setDeleteSuccess(false);
+        }}
+        autoHideDuration={3000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setDeleteSuccess(false);
+          }}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Question deleted
+        </Alert>
+      </Snackbar>
+
       <Box marginY={3} display="flex" flexDirection="column">
         <Button
           component={Link}
@@ -39,70 +97,107 @@ const Questions = () => {
         >
           Add Question
         </Button>
-        <Grid container spacing={2} marginTop={2}>
-          {questions.map((el, index) => {
-            return (
-              <Grid key={index} item xs={3}>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <CardActionArea
-                    sx={{ height: "100%", paddingBottom: "16px" }}
+        {questions.length ? (
+          <Grid container spacing={2} marginTop={2}>
+            {questions.map((el, index) => {
+              return (
+                <Grid key={index} item xs={4}>
+                  <Card
+                    variant="outlined"
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    <CardContent sx={{ height: "100%" }}>
-                      <Typography
-                        gutterBottom
-                        variant="subtitle1"
-                        fontWeight={400}
-                      >
-                        {el.question}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        marginTop={2}
-                      >
-                        Respondent Option:{" "}
-                        <strong>{el.resOptions.length}</strong>
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Stack
-                      direction="row"
-                      spacing={1}
-                      width="100%"
-                      justifyContent="flex-end"
-                      divider={<Divider orientation="vertical" flexItem />}
+                    <CardActionArea
+                      sx={{
+                        height: "calc(100% - 50px)",
+                        display: "flex",
+                        alignItems: "flex-start",
+                      }}
                     >
-                      <IconButton
-                        color="warning"
-                        aria-label="edit question"
-                        size="small"
+                      <CardContent
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                          height: "100%",
+                          boxSizing: "border-box",
+                        }}
                       >
-                        <Edit />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        aria-label="edit question"
-                        size="small"
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          fontWeight={400}
+                        >
+                          {el.question.length > 150
+                            ? el.question.substring(0, el.question.length - 3) +
+                              "..."
+                            : el.question}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          marginTop={3}
+                        >
+                          Respondent Option:{" "}
+                          <strong>{el.resOptions.length}</strong>
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        width="100%"
+                        justifyContent="flex-end"
+                        divider={<Divider orientation="vertical" flexItem />}
                       >
-                        <Delete />
-                      </IconButton>
-                    </Stack>
-                  </CardActions>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
+                        <IconButton
+                          color="secondary"
+                          aria-label="edit question"
+                          size="small"
+                        >
+                          <Edit />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => deleteConfirmationHandler(el.id)}
+                          color="error"
+                          aria-label="remove question"
+                          size="small"
+                        >
+                          <Delete />
+                        </IconButton>
+                      </Stack>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Typography marginTop={20} variant="h4" textAlign="center">
+            No questions data
+          </Typography>
+        )}
       </Box>
+
+      <Dialog open={deleteModal} onClose={() => deleteHandler("cancel")}>
+        <DialogTitle>Delete question?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>You cannot undo this!</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="info" onClick={() => deleteHandler("cancel")}>
+            Cancel
+          </Button>
+          <Button color="error" onClick={() => deleteHandler("yes")} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };

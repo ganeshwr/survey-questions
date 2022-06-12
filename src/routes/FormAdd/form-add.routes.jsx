@@ -31,7 +31,7 @@ const CloseButton = styled(Close)({
 
 function FormAdd() {
   const [question, setQuestion] = useState("");
-  const [resOptions, setResOptions] = useState([resOptionsItemDefault]);
+  const [resOptions, setResOptions] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
@@ -73,7 +73,7 @@ function FormAdd() {
 
   const resetHandler = () => {
     setQuestion("");
-    setResOptions([resOptionsItemDefault]);
+    setResOptions([]);
   };
 
   const submitHandler = () => {
