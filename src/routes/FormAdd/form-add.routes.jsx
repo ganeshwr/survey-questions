@@ -42,7 +42,7 @@ function FormAdd() {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("questions") || "[]");
 
-    if (data.length) {
+    if (data.length && id) {
       const questionData = data.find((el) => el.id === id);
 
       setQuestion(questionData.question);
