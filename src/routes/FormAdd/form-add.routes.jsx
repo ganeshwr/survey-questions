@@ -16,7 +16,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 const resOptionsItemDefault = {
@@ -30,10 +31,24 @@ const CloseButton = styled(Close)({
 });
 
 function FormAdd() {
+  const { state } = useLocation();
+  const { id } = state || {};
+
   const [question, setQuestion] = useState("");
   const [resOptions, setResOptions] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("questions") || "[]");
+
+    if (data.length) {
+      const questionData = data.find((el) => el.id === id);
+
+      setQuestion(questionData.question);
+      setResOptions(questionData.resOptions);
+    }
+  }, [id]);
 
   const addResOptions = () => {
     setResOptions([...resOptions, resOptionsItemDefault]);
@@ -173,7 +188,7 @@ function FormAdd() {
           marginBottom={3}
           textAlign="center"
         >
-          Add new question
+          {id ? "Edit" : "Add"} new question
         </Typography>
         <Paper
           component="form"

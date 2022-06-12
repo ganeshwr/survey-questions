@@ -84,7 +84,14 @@ const Navbar = () => {
                 }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Questions</Typography>
+                  <Typography
+                    textAlign="center"
+                    component={Link}
+                    to="/questions"
+                    sx={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Questions
+                  </Typography>
                 </MenuItem>
               </Menu>
             </Box>

@@ -21,9 +21,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Questions = () => {
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
@@ -53,6 +54,10 @@ const Questions = () => {
 
       localStorage.setItem("questions", JSON.stringify(localQuestions));
     }
+  };
+
+  const editHandler = (id) => {
+    navigate("/add", { state: { id } });
   };
 
   useEffect(() => {
@@ -156,6 +161,7 @@ const Questions = () => {
                         divider={<Divider orientation="vertical" flexItem />}
                       >
                         <IconButton
+                          onClick={() => editHandler(el.id)}
                           color="secondary"
                           aria-label="edit question"
                           size="small"
