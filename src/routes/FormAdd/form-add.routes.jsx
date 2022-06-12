@@ -166,6 +166,15 @@ function FormAdd() {
         elevation={0}
         sx={{ width: "calc(100% - 300px)", mx: "auto", my: 3 }}
       >
+        <Typography
+          variant="h4"
+          fontWeight={300}
+          padding={0}
+          marginBottom={3}
+          textAlign="center"
+        >
+          Add new question
+        </Typography>
         <Paper
           component="form"
           variant="outlined"
