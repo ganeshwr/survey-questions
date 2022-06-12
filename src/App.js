@@ -16,7 +16,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const resOptionsItemDefault = {
@@ -48,10 +48,10 @@ function App() {
   };
 
   const updateResOptions = (e, index, field) => {
-    setFormErrors({
-      ...formErrors,
-      answers: { ...formErrors.answers, [index]: "" },
-    });
+    const tempAnswers = { ...formErrors };
+    delete tempAnswers[index];
+
+    setFormErrors({ ...tempAnswers });
 
     const { value } = e.target;
     const updated = resOptions.map((el, innerIndex) => {
@@ -64,6 +64,9 @@ function App() {
   };
 
   const questionChangeHandler = (e) => {
+    const { question, ...rest } = formErrors;
+    setFormErrors(rest);
+
     const { value } = e.target;
     setQuestion(value);
   };
@@ -97,12 +100,12 @@ function App() {
     let haveError = false;
     let tempFormErrors = { ...formErrors };
 
-    if (question.trim().length === 0) {
+    if (!question.trim().length) {
       haveError = true;
       tempFormErrors = { ...tempFormErrors, question: "Question is required!" };
     }
 
-    if (resOptions.length !== 0) {
+    if (resOptions.length) {
       const resOptionsErrors = resOptions.reduce((prev, curr, index) => {
         if (curr.answer.trim().length === 0) {
           prev[index] = "Answer is required!";
@@ -112,19 +115,29 @@ function App() {
         return prev;
       }, {});
 
-      tempFormErrors = { ...tempFormErrors, answers: resOptionsErrors };
+      tempFormErrors = { ...tempFormErrors, ...resOptionsErrors };
     }
 
     if (haveError) {
+      const err = Object.keys(tempFormErrors).sort((a, b) =>
+        a === "question" ? -1 : b === "question" ? 1 : 0
+      );
+      console.log(err);
+      if (err.length) {
+        const input = document.querySelector(`textarea[name="${err[0]}"]`);
+
+        input.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "start",
+        });
+      }
+
       setFormErrors(tempFormErrors);
     }
 
     return haveError;
   };
-
-  useEffect(() => {
-    console.log(formErrors);
-  }, [formErrors]);
 
   return (
     <Container fixed>
@@ -162,6 +175,7 @@ function App() {
         >
           <Box padding={2}>
             <TextField
+              name="question"
               required
               error={!!formErrors.question}
               helperText={!!formErrors.question && formErrors.question}
@@ -204,6 +218,7 @@ function App() {
                       </Select>
                     </FormControl>
                     <TextField
+                      name={`${idx}`}
                       required
                       label="Answer"
                       variant="outlined"
@@ -211,10 +226,8 @@ function App() {
                       minRows={2}
                       maxRows={3}
                       fullWidth
-                      error={!!formErrors.answers && !!formErrors.answers[idx]}
-                      helperText={
-                        !!formErrors.answers && formErrors.answers[idx]
-                      }
+                      error={!!formErrors[idx]}
+                      helperText={!!formErrors[idx] && formErrors[idx]}
                       value={resOptions[idx].answer}
                       onChange={(e) => updateResOptions(e, idx, "answer")}
                     />
