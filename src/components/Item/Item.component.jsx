@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
 
-import { Handle } from "./components/Handle/Handle";
+import { Handle } from "./components/Handle/Handle.component";
 
 import styles from "./Item.module.scss";
 import {

@@ -7,7 +7,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Sortable } from "../../components/Sortable/Sortable";
-import { GridContainer } from "../../components/GridContainer/GridContainer";
+import { GridContainer } from "../../components/GridContainer/GridContainer.component";
 
 import {
   getLocalQuestions,

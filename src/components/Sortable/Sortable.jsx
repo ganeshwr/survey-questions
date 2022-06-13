@@ -20,9 +20,8 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { Item } from "../Item/Item";
-import { List } from "../List/List";
-import { Wrapper } from "../Wrapper/Wrapper";
+import { Item } from "../Item/Item.component";
+import { Wrapper } from "../Wrapper/Wrapper.component";
 import { Typography } from "@mui/material";
 
 const dropAnimationConfig = {
@@ -47,7 +46,7 @@ export function Sortable({
   activationConstraint,
   animateLayoutChanges,
   adjustScale = false,
-  Container = List,
+  Container,
   collisionDetection = closestCenter,
   coordinateGetter = sortableKeyboardCoordinates,
   dropAnimation = dropAnimationConfig,
