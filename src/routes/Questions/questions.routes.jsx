@@ -73,6 +73,7 @@ const Questions = () => {
   useEffect(() => {
     setFlashMessage(state);
     window.history.replaceState({}, document.title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
