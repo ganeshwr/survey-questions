@@ -17,7 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 const resOptionsItemDefault = {
@@ -31,6 +31,7 @@ const CloseButton = styled(Close)({
 });
 
 function FormAdd() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { id } = state || {};
 
@@ -96,17 +97,32 @@ function FormAdd() {
 
     const currQuestions = JSON.parse(localStorage.getItem("questions") || "[]");
 
-    const body = {
-      id: uuidv4(),
-      question,
-      resOptions,
-    };
+    if (id) {
+      // Update
+      const findId = currQuestions.findIndex((el) => el.id === id);
+      currQuestions[findId] = {
+        ...currQuestions[findId],
+        question,
+        resOptions,
+      };
+    } else {
+      // Create
+      const body = {
+        id: uuidv4(),
+        question,
+        resOptions,
+      };
 
-    currQuestions.push(body);
+      currQuestions.push(body);
+    }
     localStorage.setItem("questions", JSON.stringify(currQuestions));
 
     setSubmitSuccess(true);
     resetHandler();
+
+    if (id) {
+      navigate("/questions", { state: { updated: true } });
+    }
   };
 
   const validateForm = () => {
