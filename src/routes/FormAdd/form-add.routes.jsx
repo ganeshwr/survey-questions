@@ -1,4 +1,4 @@
-import { Close, RestartAlt } from "@mui/icons-material";
+import { RestartAlt } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -8,7 +8,6 @@ import {
   Grid,
   Paper,
   Snackbar,
-  styled,
   TextField,
   Tooltip,
   Typography,
@@ -28,11 +27,6 @@ const resOptionsItemDefault = {
   rule: "may",
   answer: "",
 };
-
-const CloseButton = styled(Close)({
-  cursor: "pointer",
-  padding: 5,
-});
 
 function FormAdd() {
   const navigate = useNavigate();
