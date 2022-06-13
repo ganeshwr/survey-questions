@@ -101,10 +101,10 @@ const Navbar = () => {
               sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
             />
             <Typography
+              component={Link}
+              to="/"
               variant="h5"
               noWrap
-              component="a"
-              href=""
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
