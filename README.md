@@ -1,3 +1,5 @@
+Home photo by fauxels: https://www.pexels.com/photo/colleagues-looking-at-survey-sheet-3183153/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
