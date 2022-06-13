@@ -13,8 +13,7 @@ import {
   DialogTitle,
   Snackbar,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Wrapper({
   children,

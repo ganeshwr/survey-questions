@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import classNames from "classnames";
 
 import { Handle } from "./components/Handle/Handle";
-import { Remove } from "./components/Remove/Remove";
 
 import styles from "./Item.module.scss";
 import {
@@ -142,9 +141,6 @@ export const Item = React.memo(
                 marginRight: 1,
               }}
             >
-              {onRemove ? (
-                <Remove className={styles.Remove} onClick={onRemove} />
-              ) : null}
               {handle ? <Handle {...handleProps} {...listeners} /> : null}
             </Typography>
             <CardActionArea

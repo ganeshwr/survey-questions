@@ -5,8 +5,6 @@ import Home from "./routes/Home/home.routes";
 import Questions from "./routes/Questions/questions.routes";
 import FormAdd from "./routes/FormAdd/form-add.routes";
 
-import RemovableItems from "./demo";
-
 function App() {
   return (
     <Router>
@@ -15,7 +13,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/questions" element={<Questions />} />
           <Route path="/add" element={<FormAdd />} />
-          <Route path="/demo" element={<RemovableItems />} />
         </Route>
       </Routes>
     </Router>

@@ -20,9 +20,9 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import { Item } from "./components/Item/Item";
-import { List } from "./components/List/List";
-import { Wrapper } from "./components/Wrapper/Wrapper";
+import { Item } from "../Item/Item";
+import { List } from "../List/List";
+import { Wrapper } from "../Wrapper/Wrapper";
 import { Typography } from "@mui/material";
 
 const dropAnimationConfig = {
