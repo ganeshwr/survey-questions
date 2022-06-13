@@ -14,6 +14,7 @@ import {
   Snackbar,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import ItemDetail from "../ItemDetail/item-detail.component";
 
 export function Wrapper({
   children,

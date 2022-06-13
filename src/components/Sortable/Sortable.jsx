@@ -54,7 +54,6 @@ export function Sortable({
   getItemStyles = () => ({}),
   getNewIndex,
   handle = false,
-  itemCount = 16,
   initialItems,
   isDisabled = () => false,
   measuring,
@@ -74,6 +73,7 @@ export function Sortable({
   flashMessage,
   setFlashMessage,
   deleteModal,
+  detailHandler,
 }) {
   const [items, setItems] = useState(() => initialItems ?? []);
   const [activeId, setActiveId] = useState(null);
@@ -206,6 +206,7 @@ export function Sortable({
                   getNewIndex={getNewIndex}
                   deleteConfirmationHandler={deleteConfirmationHandler}
                   editHandler={editHandler}
+                  detailHandler={detailHandler}
                 />
               ))}
             </Container>
@@ -266,6 +267,7 @@ export function SortableItem({
   wrapperStyle,
   deleteConfirmationHandler,
   editHandler,
+  detailHandler,
 }) {
   const {
     active,
@@ -319,6 +321,7 @@ export function SortableItem({
       dragOverlay={!useDragOverlay && isDragging}
       deleteConfirmationHandler={deleteConfirmationHandler}
       editHandler={editHandler}
+      detailHandler={detailHandler}
       {...attributes}
     />
   );

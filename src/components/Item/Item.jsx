@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 
 import { Handle } from "./components/Handle/Handle";
@@ -41,6 +41,7 @@ export const Item = React.memo(
         wrapperStyle,
         deleteConfirmationHandler,
         editHandler,
+        detailHandler,
         ...props
       },
       ref
@@ -145,6 +146,7 @@ export const Item = React.memo(
               {handle ? <Handle {...handleProps} {...listeners} /> : null}
             </Typography>
             <CardActionArea
+              onClick={() => detailHandler(el)}
               sx={{
                 height: "calc(100% - 50px)",
                 display: "flex",

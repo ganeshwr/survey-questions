@@ -13,6 +13,7 @@ import {
   getLocalQuestions,
   setLocalQuestions,
 } from "../../utils/questions.utils";
+import ItemDetail from "../../components/ItemDetail/item-detail.component";
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -22,6 +23,7 @@ const Questions = () => {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [flashMessage, setFlashMessage] = useState(null);
+  const [openDetail, setOpenDetail] = useState(false);
 
   const animateLayoutChanges = (args) =>
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
@@ -56,6 +58,18 @@ const Questions = () => {
     setSelectedQuestionId(id);
   };
 
+  const detailHandler = (id) => {
+    setOpenDetail(true);
+
+    setSelectedQuestionId(id);
+  };
+
+  const closeDetailHandler = (id) => {
+    setOpenDetail(false);
+
+    setSelectedQuestionId(null);
+  };
+
   const editHandler = (id) => {
     navigate("/add", { state: { id } });
   };
@@ -67,24 +81,33 @@ const Questions = () => {
   }, []);
 
   return (
-    <Sortable
-      adjustScale={true}
-      Container={(props) => <GridContainer {...props} />}
-      strategy={rectSortingStrategy}
-      animateLayoutChanges={animateLayoutChanges}
-      measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
-      removable
-      handle
-      initialItems={questions}
-      deleteHandler={deleteHandler}
-      deleteConfirmationHandler={deleteConfirmationHandler}
-      editHandler={editHandler}
-      deleteSuccess={deleteSuccess}
-      setDeleteSuccess={setDeleteSuccess}
-      flashMessage={flashMessage}
-      setFlashMessage={setFlashMessage}
-      deleteModal={deleteModal}
-    />
+    <>
+      <Sortable
+        adjustScale={true}
+        Container={(props) => <GridContainer {...props} />}
+        strategy={rectSortingStrategy}
+        animateLayoutChanges={animateLayoutChanges}
+        measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
+        removable
+        handle
+        initialItems={questions}
+        deleteHandler={deleteHandler}
+        deleteConfirmationHandler={deleteConfirmationHandler}
+        editHandler={editHandler}
+        deleteSuccess={deleteSuccess}
+        setDeleteSuccess={setDeleteSuccess}
+        flashMessage={flashMessage}
+        setFlashMessage={setFlashMessage}
+        deleteModal={deleteModal}
+        detailHandler={detailHandler}
+      />
+      <ItemDetail
+        openDetail={openDetail}
+        setOpenDetail={setOpenDetail}
+        data={selectedQuestionId}
+        closeDetailHandler={closeDetailHandler}
+      />
+    </>
   );
 };
 
