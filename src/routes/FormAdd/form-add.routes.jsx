@@ -200,7 +200,7 @@ function FormAdd() {
 
       <Paper
         elevation={0}
-        sx={{ width: "calc(100% - 300px)", mx: "auto", my: 3 }}
+        sx={{ width: "calc(100% - 500px)", mx: "auto", my: 3 }}
       >
         <Typography
           variant="h4"
