@@ -24,12 +24,6 @@ import { Item } from "./components/Item/Item";
 import { List } from "./components/List/List";
 import { Wrapper } from "./components/Wrapper/Wrapper";
 
-const defaultInitializer = (index) => index;
-
-export function createRange(length, initializer = defaultInitializer) {
-  return [...new Array(length)].map((_, index) => initializer(index));
-}
-
 const dropAnimationConfig = {
   sideEffects: defaultDropAnimationSideEffects({
     styles: {
@@ -72,9 +66,7 @@ export function Sortable({
   useDragOverlay = true,
   wrapperStyle = () => ({}),
 }) {
-  const [items, setItems] = useState(
-    () => initialItems ?? createRange(itemCount, (index) => index + 1)
-  );
+  const [items, setItems] = useState(() => initialItems ?? []);
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -143,6 +135,10 @@ export function Sortable({
     }
   }, [activeId]);
 
+  useEffect(() => {
+    setItems(initialItems);
+  }, [initialItems]);
+
   return (
     <DndContext
       accessibility={{
@@ -177,7 +173,7 @@ export function Sortable({
           <Container>
             {items.map((value, index) => (
               <SortableItem
-                key={value}
+                key={value.id}
                 id={value}
                 handle={handle}
                 index={index}

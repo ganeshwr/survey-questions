@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MeasuringStrategy } from "@dnd-kit/core";
 import {
   defaultAnimateLayoutChanges,
@@ -8,27 +8,33 @@ import {
 import { Sortable } from "./Sortable";
 import { GridContainer } from "./components/GridContainer/GridContainer";
 
-const props = {
-  adjustScale: true,
-  Container: (props) => <GridContainer {...props} columns={5} />,
-  strategy: rectSortingStrategy,
-  wrapperStyle: () => ({
-    width: 140,
-    height: 140,
-  }),
-};
-
 const RemovableItems = () => {
+  const [questions, setQuestions] = useState([]);
   const animateLayoutChanges = (args) =>
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
+  useEffect(() => {
+    const localQuestions = JSON.parse(
+      localStorage.getItem("questions") || "[]"
+    );
+
+    setQuestions(localQuestions);
+  }, []);
+
   return (
     <Sortable
-      {...props}
+      adjustScale={true}
+      Container={(props) => <GridContainer {...props} />}
+      wrapperStyle={() => ({
+        width: "auto",
+        height: "auto",
+      })}
+      strategy={rectSortingStrategy}
       animateLayoutChanges={animateLayoutChanges}
       measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
       removable
       handle
+      initialItems={questions}
     />
   );
 };

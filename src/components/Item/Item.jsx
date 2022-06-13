@@ -5,6 +5,18 @@ import { Handle } from "./components/Handle/Handle";
 import { Remove } from "./components/Remove/Remove";
 
 import styles from "./Item.module.scss";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Divider,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
 
 export const Item = React.memo(
   React.forwardRef(
@@ -26,7 +38,7 @@ export const Item = React.memo(
         style,
         transition,
         transform,
-        value,
+        value: el,
         wrapperStyle,
         ...props
       },
@@ -56,10 +68,13 @@ export const Item = React.memo(
           style,
           transform,
           transition,
-          value,
+          el,
         })
       ) : (
-        <li
+        <Grid
+          item
+          xs={4}
+          component="li"
           className={classNames(
             styles.Wrapper,
             fadeIn && styles.fadeIn,
@@ -90,7 +105,15 @@ export const Item = React.memo(
           }}
           ref={ref}
         >
-          <div
+          <Card
+            variant="outlined"
+            sx={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              position: "relative",
+            }}
             className={classNames(
               styles.Item,
               dragging && styles.dragging,
@@ -105,15 +128,83 @@ export const Item = React.memo(
             {...props}
             tabIndex={!handle ? 0 : undefined}
           >
-            {value} EDAN
-            <span className={styles.Actions}>
+            <Typography
+              variant="span"
+              sx={{
+                display: "flex",
+                position: "absolute",
+                top: 0,
+                right: 0,
+                zIndex: 1,
+                marginTop: 1,
+                marginRight: 1,
+              }}
+            >
               {onRemove ? (
                 <Remove className={styles.Remove} onClick={onRemove} />
               ) : null}
               {handle ? <Handle {...handleProps} {...listeners} /> : null}
-            </span>
-          </div>
-        </li>
+            </Typography>
+            <CardActionArea
+              sx={{
+                height: "calc(100% - 50px)",
+                display: "flex",
+                alignItems: "flex-start",
+              }}
+            >
+              <CardContent
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: "100%",
+                  boxSizing: "border-box",
+                  paddingTop: 5,
+                }}
+              >
+                <Typography gutterBottom variant="subtitle1" fontWeight={400}>
+                  {el.question.length > 150
+                    ? el.question.substring(0, el.question.length - 3) + "..."
+                    : el.question}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  marginTop={3}
+                >
+                  Respondent Option: <strong>{el.resOptions.length}</strong>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions sx={{ justifyContent: "flex-end" }}>
+              <Stack
+                direction="row"
+                spacing={1}
+                width="100%"
+                justifyContent="flex-end"
+                divider={<Divider orientation="vertical" flexItem />}
+              >
+                <IconButton
+                  // onClick={() => editHandler(el.id)}
+                  color="warning"
+                  aria-label="edit question"
+                  size="small"
+                >
+                  <Edit />
+                </IconButton>
+                <IconButton
+                  // onClick={() => deleteConfirmationHandler(el.id)}
+                  color="error"
+                  aria-label="remove question"
+                  size="small"
+                >
+                  <Delete />
+                </IconButton>
+              </Stack>
+            </CardActions>
+          </Card>
+        </Grid>
       );
     }
   )
