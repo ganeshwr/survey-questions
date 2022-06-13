@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Container,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Paper,
@@ -198,110 +199,113 @@ function FormAdd() {
         </Alert>
       </Snackbar>
 
-      <Paper
-        elevation={0}
-        sx={{ width: "calc(100% - 500px)", mx: "auto", my: 3 }}
-      >
-        <Typography
-          variant="h4"
-          fontWeight={300}
-          padding={0}
-          marginBottom={3}
-          textAlign="center"
-        >
-          {id ? "Edit" : "Add"} new question
-        </Typography>
-        <Paper
-          component="form"
-          variant="outlined"
-          noValidate
-          autoComplete="off"
-        >
-          <Box padding={2}>
-            <TextField
-              name="question"
-              required
-              error={!!formErrors.question}
-              helperText={!!formErrors.question && formErrors.question}
-              label="Question"
+      <Grid container justifyContent="center">
+        <Grid item xs={12} md={7}>
+          <Paper elevation={0} sx={{ width: "100%", mx: "auto", my: 3 }}>
+            <Typography
+              variant="h4"
+              fontWeight={300}
+              padding={0}
+              marginBottom={3}
+              textAlign="center"
+            >
+              {id ? "Edit" : "Add"} new question
+            </Typography>
+            <Paper
+              component="form"
               variant="outlined"
-              multiline
-              minRows={2}
-              maxRows={6}
-              fullWidth
-              value={question}
-              onChange={questionChangeHandler}
-            />
-            <Paper variant="outlined" sx={{ marginTop: 3, px: 2, py: 1 }}>
-              {resOptions.map((el, idx) => {
-                return (
-                  <Box key={idx} marginTop={idx !== 0 ? 3 : 0}>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography>Respondent Option #{idx + 1}</Typography>
-                      <CloseButton onClick={() => removeResOptions(idx)} />
-                    </Box>
+              noValidate
+              autoComplete="off"
+            >
+              <Box padding={2}>
+                <TextField
+                  name="question"
+                  required
+                  error={!!formErrors.question}
+                  helperText={!!formErrors.question && formErrors.question}
+                  label="Question"
+                  variant="outlined"
+                  multiline
+                  minRows={2}
+                  maxRows={6}
+                  fullWidth
+                  value={question}
+                  onChange={questionChangeHandler}
+                />
+                <Paper variant="outlined" sx={{ marginTop: 3, px: 2, py: 1 }}>
+                  {resOptions.map((el, idx) => {
+                    return (
+                      <Box key={idx} marginTop={idx !== 0 ? 3 : 0}>
+                        <Box
+                          display="flex"
+                          justifyContent="space-between"
+                          alignItems="center"
+                        >
+                          <Typography>Respondent Option #{idx + 1}</Typography>
+                          <CloseButton onClick={() => removeResOptions(idx)} />
+                        </Box>
 
-                    <FormControl
-                      fullWidth
-                      margin="normal"
-                      sx={{ marginTop: 1, marginBottom: 1.5 }}
-                      required
-                    >
-                      <InputLabel>Rule</InputLabel>
-                      <Select
-                        label="Rule"
-                        value={resOptions[idx].rule}
-                        onChange={(e) => updateResOptions(e, idx, "rule")}
-                      >
-                        <MenuItem value="may">May Select</MenuItem>
-                        <MenuItem value="must">Must Select</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <TextField
-                      name={`${idx}`}
-                      required
-                      label="Answer"
-                      variant="outlined"
-                      multiline
-                      minRows={2}
-                      maxRows={3}
-                      fullWidth
-                      error={!!formErrors[idx]}
-                      helperText={!!formErrors[idx] && formErrors[idx]}
-                      value={resOptions[idx].answer}
-                      onChange={(e) => updateResOptions(e, idx, "answer")}
-                    />
-                  </Box>
-                );
-              })}
-              <Button
-                onClick={addResOptions}
-                sx={{ marginTop: resOptions.length > 0 ? 3 : 0 }}
-                size="small"
-                color="info"
-              >
-                {resOptions.length > 0 ? "Add more" : "Add respondent option"}
-              </Button>
+                        <FormControl
+                          fullWidth
+                          margin="normal"
+                          sx={{ marginTop: 1, marginBottom: 1.5 }}
+                          required
+                        >
+                          <InputLabel>Rule</InputLabel>
+                          <Select
+                            label="Rule"
+                            value={resOptions[idx].rule}
+                            onChange={(e) => updateResOptions(e, idx, "rule")}
+                          >
+                            <MenuItem value="may">May Select</MenuItem>
+                            <MenuItem value="must">Must Select</MenuItem>
+                          </Select>
+                        </FormControl>
+                        <TextField
+                          name={`${idx}`}
+                          required
+                          label="Answer"
+                          variant="outlined"
+                          multiline
+                          minRows={2}
+                          maxRows={3}
+                          fullWidth
+                          error={!!formErrors[idx]}
+                          helperText={!!formErrors[idx] && formErrors[idx]}
+                          value={resOptions[idx].answer}
+                          onChange={(e) => updateResOptions(e, idx, "answer")}
+                        />
+                      </Box>
+                    );
+                  })}
+                  <Button
+                    onClick={addResOptions}
+                    sx={{ marginTop: resOptions.length > 0 ? 3 : 0 }}
+                    size="small"
+                    color="info"
+                  >
+                    {resOptions.length > 0
+                      ? "Add more"
+                      : "Add respondent option"}
+                  </Button>
+                </Paper>
+              </Box>
+              <Box padding={2}>
+                <ButtonGroup disableElevation variant="outlined" fullWidth>
+                  <Button variant="contained" onClick={submitHandler}>
+                    Submit Question
+                  </Button>
+                  <Tooltip title="Reset Form" placement="right">
+                    <Button sx={{ width: "auto" }} onClick={resetHandler}>
+                      <RestartAlt />
+                    </Button>
+                  </Tooltip>
+                </ButtonGroup>
+              </Box>
             </Paper>
-          </Box>
-          <Box padding={2}>
-            <ButtonGroup disableElevation variant="outlined" fullWidth>
-              <Button variant="contained" onClick={submitHandler}>
-                Submit Question
-              </Button>
-              <Tooltip title="Reset Form" placement="right">
-                <Button sx={{ width: "auto" }} onClick={resetHandler}>
-                  <RestartAlt />
-                </Button>
-              </Tooltip>
-            </ButtonGroup>
-          </Box>
-        </Paper>
-      </Paper>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

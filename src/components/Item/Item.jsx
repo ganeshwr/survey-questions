@@ -74,7 +74,8 @@ export const Item = React.memo(
       ) : (
         <Grid
           item
-          xs={4}
+          xs={12}
+          md={4}
           component="li"
           className={classNames(
             styles.Wrapper,
