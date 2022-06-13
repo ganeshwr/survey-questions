@@ -6,7 +6,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Sortable } from "../../components/Sortable/Sortable";
+import { Sortable } from "../../components/Sortable/Sortable.component";
 import { GridContainer } from "../../components/GridContainer/GridContainer.component";
 
 import {

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo, forwardRef } from "react";
 import classNames from "classnames";
 
 import { Handle } from "./components/Handle/Handle.component";
@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 
-export const Item = React.memo(
-  React.forwardRef(
+export const Item = memo(
+  forwardRef(
     (
       {
         color,
