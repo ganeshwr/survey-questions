@@ -20,6 +20,12 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
+import {
+  QuestionsContext,
+  getLocalQuestions,
+  setLocalQuestions,
+} from "../../context/questions.context";
+
 const resOptionsItemDefault = {
   rule: "may",
   answer: "",
@@ -41,7 +47,7 @@ function FormAdd() {
   const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("questions") || "[]");
+    const data = getLocalQuestions();
 
     if (data.length && id) {
       const questionData = data.find((el) => el.id === id);
@@ -95,7 +101,7 @@ function FormAdd() {
   const submitHandler = () => {
     if (validateForm()) return;
 
-    const currQuestions = JSON.parse(localStorage.getItem("questions") || "[]");
+    const currQuestions = getLocalQuestions();
 
     if (id) {
       // Update
@@ -115,7 +121,7 @@ function FormAdd() {
 
       currQuestions.push(body);
     }
-    localStorage.setItem("questions", JSON.stringify(currQuestions));
+    setLocalQuestions(currQuestions);
 
     setSubmitSuccess(true);
     resetHandler();

@@ -4,10 +4,16 @@ import {
   defaultAnimateLayoutChanges,
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Sortable } from "../../components/Sortable/Sortable";
 import { GridContainer } from "../../components/GridContainer/GridContainer";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import {
+  QuestionsContext,
+  getLocalQuestions,
+  setLocalQuestions,
+} from "../../context/questions.context";
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -22,9 +28,7 @@ const Questions = () => {
     defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
   useEffect(() => {
-    const localQuestions = JSON.parse(
-      localStorage.getItem("questions") || "[]"
-    );
+    const localQuestions = getLocalQuestions();
 
     setQuestions(localQuestions);
   }, []);
@@ -33,9 +37,7 @@ const Questions = () => {
     setDeleteModal(false);
 
     if (selectedQuestionId !== null && decision === "yes") {
-      let localQuestions = JSON.parse(
-        localStorage.getItem("questions") || "[]"
-      );
+      let localQuestions = getLocalQuestions();
 
       localQuestions = localQuestions.filter((el) => {
         return el.id !== selectedQuestionId;
@@ -45,7 +47,7 @@ const Questions = () => {
       setDeleteSuccess(true);
       setSelectedQuestionId(null);
 
-      localStorage.setItem("questions", JSON.stringify(localQuestions));
+      setLocalQuestions(localQuestions);
     }
   };
 
