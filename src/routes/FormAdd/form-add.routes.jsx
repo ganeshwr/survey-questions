@@ -21,6 +21,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
+import RespondentOptions from "../../components/RespondentOptions/respondent-options.component";
+
 import {
   getLocalQuestions,
   setLocalQuestions,
@@ -233,51 +235,12 @@ function FormAdd() {
                   onChange={questionChangeHandler}
                 />
                 <Paper variant="outlined" sx={{ marginTop: 3, px: 2, py: 1 }}>
-                  {resOptions.map((el, idx) => {
-                    return (
-                      <Box key={idx} marginTop={idx !== 0 ? 3 : 0}>
-                        <Box
-                          display="flex"
-                          justifyContent="space-between"
-                          alignItems="center"
-                        >
-                          <Typography>Respondent Option #{idx + 1}</Typography>
-                          <CloseButton onClick={() => removeResOptions(idx)} />
-                        </Box>
-
-                        <FormControl
-                          fullWidth
-                          margin="normal"
-                          sx={{ marginTop: 1, marginBottom: 1.5 }}
-                          required
-                        >
-                          <InputLabel>Rule</InputLabel>
-                          <Select
-                            label="Rule"
-                            value={resOptions[idx].rule}
-                            onChange={(e) => updateResOptions(e, idx, "rule")}
-                          >
-                            <MenuItem value="may">May Select</MenuItem>
-                            <MenuItem value="must">Must Select</MenuItem>
-                          </Select>
-                        </FormControl>
-                        <TextField
-                          name={`${idx}`}
-                          required
-                          label="Answer"
-                          variant="outlined"
-                          multiline
-                          minRows={2}
-                          maxRows={3}
-                          fullWidth
-                          error={!!formErrors[idx]}
-                          helperText={!!formErrors[idx] && formErrors[idx]}
-                          value={resOptions[idx].answer}
-                          onChange={(e) => updateResOptions(e, idx, "answer")}
-                        />
-                      </Box>
-                    );
-                  })}
+                  <RespondentOptions
+                    resOptions={resOptions}
+                    removeResOptions={removeResOptions}
+                    updateResOptions={updateResOptions}
+                    formErrors={formErrors}
+                  />
                   <Button
                     onClick={addResOptions}
                     sx={{ marginTop: resOptions.length > 0 ? 3 : 0 }}
