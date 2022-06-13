@@ -1,0 +1,85 @@
+[
+  {
+    "id": "280f4178-b97a-4e6a-aa9f-7ae53eda91ff",
+    "question": "How long have you been using the product?",
+    "resOptions": [
+      { "rule": "may", "answer": "More than 1 year" },
+      { "rule": "may", "answer": "Lest than 1 year" }
+    ]
+  },
+  {
+    "id": "f5a2cfa7-e39f-4a6e-bbd6-f717d48a4690",
+    "question": "Which alternatives did you consider before purchasing the product?",
+    "resOptions": [
+      { "rule": "may", "answer": "Use A" },
+      { "rule": "must", "answer": "Use B" },
+      { "rule": "may", "answer": "Use C" }
+    ]
+  },
+  {
+    "id": "fefd8eaa-5355-46c9-983a-55d408c5dd25",
+    "question": "How often do you use the product or service?",
+    "resOptions": [
+      { "rule": "must", "answer": "0-1 Years" },
+      { "rule": "must", "answer": "1-2 Years" },
+      { "rule": "must", "answer": "2-3 Years" },
+      { "rule": "must", "answer": "More than 3 Years" }
+    ]
+  },
+  {
+    "id": "f30c526e-67ec-4ac4-b9fe-605e44599777",
+    "question": "Does the product help you achieve your goals?",
+    "resOptions": [
+      { "rule": "may", "answer": "Yes" },
+      { "rule": "may", "answer": "No" },
+      { "rule": "may", "answer": "Maybe" }
+    ]
+  },
+  {
+    "id": "ba9dfb98-02c1-4565-b836-82c36124f291",
+    "question": "What is your favorite tool or portion of the product or service?",
+    "resOptions": [
+      { "rule": "must", "answer": "Feature A and B" },
+      { "rule": "may", "answer": "Customer service is great" },
+      { "rule": "may", "answer": "Other" }
+    ]
+  },
+  {
+    "id": "096828dd-8f06-4631-82fb-4ffcd8e1071c",
+    "question": "Which product features do you consider the most valuable?",
+    "resOptions": [
+      { "rule": "must", "answer": "A1" },
+      { "rule": "may", "answer": "A2" },
+      { "rule": "may", "answer": "B1" },
+      { "rule": "may", "answer": "B2" },
+      { "rule": "may", "answer": "B3" },
+      { "rule": "must", "answer": "C123" }
+    ]
+  },
+  {
+    "id": "e717bbaa-0bf4-4904-9c85-ef5e5d2826d6",
+    "question": "Which product feature do you use most often in your day-to-day?",
+    "resOptions": [
+      { "rule": "may", "answer": "Type AZ1" },
+      { "rule": "may", "answer": "Type AZ2" }
+    ]
+  },
+  {
+    "id": "957a8e43-2b15-4229-a948-9a2ee11130c2",
+    "question": "What points of friction have you encountered while using the product?",
+    "resOptions": [
+      { "rule": "may", "answer": "Helpful" },
+      { "rule": "may", "answer": "Could be helpful" },
+      { "rule": "may", "answer": "OK" }
+    ]
+  },
+  {
+    "id": "d54506ea-7bc6-45bb-b451-7fa3e36d7521",
+    "question": "What would you improve if you could?",
+    "resOptions": [
+      { "rule": "may", "answer": "Performance" },
+      { "rule": "may", "answer": "Customer service" },
+      { "rule": "may", "answer": "After sales" }
+    ]
+  }
+]

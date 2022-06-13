@@ -1,4 +1,7 @@
 Home photo by fauxels: https://www.pexels.com/photo/colleagues-looking-at-survey-sheet-3183153/
+Dummy question example taken from: https://blog.hubspot.com/service/customer-satisfaction-survey-examples
+
+To generate starter data, please go to route "/seeder"
 
 # Getting Started with Create React App
 
