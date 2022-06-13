@@ -121,7 +121,7 @@ function FormAdd() {
     resetHandler();
 
     if (id) {
-      navigate("/questions", { state: { updated: true } });
+      navigate("/questions", { state: "Question updated successfully!" });
     }
   };
 

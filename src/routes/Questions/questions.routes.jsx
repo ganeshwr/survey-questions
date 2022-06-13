@@ -21,14 +21,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Questions = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [flashMessage, setFlashMessage] = useState(null);
 
   const deleteConfirmationHandler = (id) => {
     setDeleteModal(true);
@@ -68,6 +70,11 @@ const Questions = () => {
     setQuestions(localQuestions);
   }, []);
 
+  useEffect(() => {
+    setFlashMessage(state);
+    window.history.replaceState({}, document.title);
+  }, []);
+
   return (
     <Container fixed>
       <Snackbar
@@ -89,6 +96,27 @@ const Questions = () => {
           sx={{ width: "100%" }}
         >
           Question deleted
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={!!flashMessage}
+        onClose={() => {
+          setFlashMessage(null);
+        }}
+        autoHideDuration={3000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setFlashMessage(null);
+          }}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {flashMessage}
         </Alert>
       </Snackbar>
 
