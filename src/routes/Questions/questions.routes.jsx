@@ -10,10 +10,9 @@ import { Sortable } from "../../components/Sortable/Sortable";
 import { GridContainer } from "../../components/GridContainer/GridContainer";
 
 import {
-  QuestionsContext,
   getLocalQuestions,
   setLocalQuestions,
-} from "../../context/questions.context";
+} from "../../utils/questions.utils";
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
