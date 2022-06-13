@@ -23,6 +23,7 @@ import {
 import { Item } from "./components/Item/Item";
 import { List } from "./components/List/List";
 import { Wrapper } from "./components/Wrapper/Wrapper";
+import { Typography } from "@mui/material";
 
 const dropAnimationConfig = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -65,6 +66,14 @@ export function Sortable({
   style,
   useDragOverlay = true,
   wrapperStyle = () => ({}),
+  deleteHandler,
+  deleteConfirmationHandler,
+  editHandler,
+  deleteSuccess,
+  setDeleteSuccess,
+  flashMessage,
+  setFlashMessage,
+  deleteModal,
 }) {
   const [items, setItems] = useState(() => initialItems ?? []);
   const [activeId, setActiveId] = useState(null);
@@ -168,26 +177,43 @@ export function Sortable({
       measuring={measuring}
       modifiers={modifiers}
     >
-      <Wrapper style={style} center>
+      <Wrapper
+        deleteHandler={deleteHandler}
+        style={style}
+        center
+        deleteSuccess={deleteSuccess}
+        setDeleteSuccess={setDeleteSuccess}
+        flashMessage={flashMessage}
+        setFlashMessage={setFlashMessage}
+        deleteModal={deleteModal}
+      >
         <SortableContext items={items} strategy={strategy}>
-          <Container>
-            {items.map((value, index) => (
-              <SortableItem
-                key={value.id}
-                id={value}
-                handle={handle}
-                index={index}
-                style={getItemStyles}
-                wrapperStyle={wrapperStyle}
-                disabled={isDisabled(value)}
-                renderItem={renderItem}
-                onRemove={handleRemove}
-                animateLayoutChanges={animateLayoutChanges}
-                useDragOverlay={useDragOverlay}
-                getNewIndex={getNewIndex}
-              />
-            ))}
-          </Container>
+          {items.length ? (
+            <Container>
+              {items.map((value, index) => (
+                <SortableItem
+                  key={value.id}
+                  id={value}
+                  handle={handle}
+                  index={index}
+                  style={getItemStyles}
+                  wrapperStyle={wrapperStyle}
+                  disabled={isDisabled(value)}
+                  renderItem={renderItem}
+                  onRemove={handleRemove}
+                  animateLayoutChanges={animateLayoutChanges}
+                  useDragOverlay={useDragOverlay}
+                  getNewIndex={getNewIndex}
+                  deleteConfirmationHandler={deleteConfirmationHandler}
+                  editHandler={editHandler}
+                />
+              ))}
+            </Container>
+          ) : (
+            <Typography marginTop={20} variant="h4" textAlign="center">
+              No questions data
+            </Typography>
+          )}
         </SortableContext>
       </Wrapper>
       {useDragOverlay
@@ -238,6 +264,8 @@ export function SortableItem({
   renderItem,
   useDragOverlay,
   wrapperStyle,
+  deleteConfirmationHandler,
+  editHandler,
 }) {
   const {
     active,
@@ -289,6 +317,8 @@ export function SortableItem({
       data-index={index}
       data-id={id}
       dragOverlay={!useDragOverlay && isDragging}
+      deleteConfirmationHandler={deleteConfirmationHandler}
+      editHandler={editHandler}
       {...attributes}
     />
   );

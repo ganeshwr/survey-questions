@@ -40,6 +40,8 @@ export const Item = React.memo(
         transform,
         value: el,
         wrapperStyle,
+        deleteConfirmationHandler,
+        editHandler,
         ...props
       },
       ref
@@ -186,7 +188,7 @@ export const Item = React.memo(
                 divider={<Divider orientation="vertical" flexItem />}
               >
                 <IconButton
-                  // onClick={() => editHandler(el.id)}
+                  onClick={() => editHandler(el.id)}
                   color="warning"
                   aria-label="edit question"
                   size="small"
@@ -194,7 +196,7 @@ export const Item = React.memo(
                   <Edit />
                 </IconButton>
                 <IconButton
-                  // onClick={() => deleteConfirmationHandler(el.id)}
+                  onClick={() => deleteConfirmationHandler(el.id)}
                   color="error"
                   aria-label="remove question"
                   size="small"
