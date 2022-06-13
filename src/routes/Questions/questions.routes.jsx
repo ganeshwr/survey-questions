@@ -14,6 +14,7 @@ import {
   setLocalQuestions,
 } from "../../utils/questions.utils";
 import ItemDetail from "../../components/ItemDetail/item-detail.component";
+import { Box } from "@mui/material";
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -81,7 +82,7 @@ const Questions = () => {
   }, []);
 
   return (
-    <>
+    <Box paddingY={3}>
       <Sortable
         adjustScale={true}
         Container={(props) => <GridContainer {...props} />}
@@ -107,7 +108,7 @@ const Questions = () => {
         data={selectedQuestionId}
         closeDetailHandler={closeDetailHandler}
       />
-    </>
+    </Box>
   );
 };
 

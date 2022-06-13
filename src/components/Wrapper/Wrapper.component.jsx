@@ -67,7 +67,7 @@ export function Wrapper({
         </Alert>
       </Snackbar>
 
-      <Box marginY={3} display="flex" flexDirection="column">
+      <Box marginBottom={3} display="flex" flexDirection="column">
         <Button
           component={Link}
           to="/add"
