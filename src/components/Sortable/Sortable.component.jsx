@@ -24,6 +24,8 @@ import { Item } from "../Item/Item.component";
 import { Wrapper } from "../Wrapper/Wrapper.component";
 import { Typography } from "@mui/material";
 
+import { setLocalQuestions } from "../../utils/questions.utils";
+
 const dropAnimationConfig = {
   sideEffects: defaultDropAnimationSideEffects({
     styles: {
@@ -168,7 +170,9 @@ export function Sortable({
         if (over) {
           const overIndex = getIndex(over.id);
           if (activeIndex !== overIndex) {
-            setItems((items) => reorderItems(items, activeIndex, overIndex));
+            const tempItems = reorderItems(items, activeIndex, overIndex);
+            setItems(tempItems);
+            setLocalQuestions(tempItems);
           }
         }
       }}
