@@ -1,4 +1,4 @@
-import { Adb, Menu as MenuIcon } from "@mui/icons-material";
+import { DataThresholding, Menu as MenuIcon } from "@mui/icons-material";
 import {
   AppBar,
   Box,
@@ -39,7 +39,9 @@ const Navbar = () => {
                 color: "inherit",
               }}
             >
-              <Adb sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+              <DataThresholding
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              />
               <Typography
                 variant="h6"
                 noWrap
@@ -50,7 +52,7 @@ const Navbar = () => {
                   letterSpacing: ".3rem",
                 }}
               >
-                LOGO
+                PopData
               </Typography>
             </Box>
 
@@ -95,7 +97,9 @@ const Navbar = () => {
                 </MenuItem>
               </Menu>
             </Box>
-            <Adb sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <DataThresholding
+              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            />
             <Typography
               variant="h5"
               noWrap
@@ -112,7 +116,7 @@ const Navbar = () => {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              PopData
             </Typography>
             <Box
               sx={{
