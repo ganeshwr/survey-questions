@@ -6,8 +6,9 @@ To generate starter data, please go to route "/seeder"
 
 ## How to run
 
-1. Run `npm start`
-2. You should be able to open the app in [http://localhost:3000](http://localhost:3000)
+1. Run `npm install`
+2. Once finish, run `npm start`
+3. You should be able to open the app in [http://localhost:3000](http://localhost:3000)
 
 <hr>
 Credit:
