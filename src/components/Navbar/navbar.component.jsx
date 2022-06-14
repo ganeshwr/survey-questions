@@ -80,7 +80,7 @@ const Navbar = ({ mode, setMode }) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box
